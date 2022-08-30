@@ -1,10 +1,10 @@
 package slice
 
-func retain[T any](v []T, f func(T) bool) []T {
-	return retain_mut(v, func(elm T, _ int) bool { return f(elm) })
+func Retain[T any](v []T, f func(T) bool) []T {
+	return RetainEnumerate(v, func(elm T, _ int) bool { return f(elm) })
 }
 
-func retain_mut[T any](v []T, f func(T, int) bool) []T {
+func RetainEnumerate[T any](v []T, f func(T, int) bool) []T {
 	deleted := 0
 	processed := 0
 	originLen := len(v)
