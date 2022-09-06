@@ -7,7 +7,7 @@ import (
 
 func TestRetainRemoveHead(t *testing.T) {
 	var v = []int{1, 2, 3, 4}
-	v = retain(v, func(elm int) bool {
+	v = Retain(v, func(elm int) bool {
 		return elm > 3
 	})
 
@@ -18,7 +18,7 @@ func TestRetainRemoveHead(t *testing.T) {
 
 func TestRetainRemoveTail(t *testing.T) {
 	var v = []int{1, 2, 3, 4}
-	v = retain(v, func(elm int) bool {
+	v = Retain(v, func(elm int) bool {
 		return elm < 3
 	})
 
@@ -29,7 +29,7 @@ func TestRetainRemoveTail(t *testing.T) {
 
 func TestRetainRemoveMiddle(t *testing.T) {
 	var v = []int{1, 2, 3, 4}
-	v = retain(v, func(elm int) bool {
+	v = Retain(v, func(elm int) bool {
 		return elm%2 == 0
 	})
 
