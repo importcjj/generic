@@ -36,6 +36,26 @@ func (option Option[T]) Unwrap() T {
 	return *option.value
 }
 
+func (option Option[T]) UnwrapOr(defaultValue T) T {
+	if option.IsSome() {
+		return *option.value
+	}
+
+	return defaultValue
+}
+
+func (option Option[T]) UnwrapOrElse(f func() T) T {
+	if option.IsSome() {
+		return *option.value
+	}
+
+	return f()
+}
+
+func (option Option[T]) unwrapUnchecked() T {
+	return *option.value
+}
+
 func (option Option[T]) Expect(msg string) T {
 	if option.IsNone() {
 		panic(msg)

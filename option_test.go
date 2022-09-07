@@ -119,3 +119,26 @@ func TestOptionIsSomeAnd2(t *testing.T) {
 	assert.False(t, None[[]int]().IsSomeAnd(func(i []int) bool { return true }))
 	assert.False(t, None[[]*Foo]().IsSomeAnd(func(f []*Foo) bool { return true }))
 }
+
+func TestOptionUnwrapOr(t *testing.T) {
+	assert.Equal(t, Some(1).UnwrapOr(2), 1)
+	assert.Equal(t, None[int]().UnwrapOr(100), 100)
+	assert.Equal(t, Some("Go").UnwrapOr("Rust"), "Go")
+	assert.Equal(t, None[string]().UnwrapOr("Go"), "Go")
+}
+
+func TestOptionUnwrapOrElse(t *testing.T) {
+	assert.Equal(t, Some(1).UnwrapOrElse(func() int { return 2 }), 1)
+	assert.Equal(t, None[int]().UnwrapOrElse(func() int { return 100 }), 100)
+	assert.Equal(t, Some("Go").UnwrapOrElse(func() string { return "Rust" }), "Go")
+	assert.Equal(t, None[string]().UnwrapOrElse(func() string { return "Go" }), "Go")
+}
+
+func TestOptionUnwrapOrElse2(t *testing.T) {
+	var count int
+	assert.Equal(t, Some(1).UnwrapOrElse(func() int { count += 1; return 2 }), 1)
+	assert.Equal(t, None[int]().UnwrapOrElse(func() int { count += 1; return 100 }), 100)
+	assert.Equal(t, Some("Go").UnwrapOrElse(func() string { count += 1; return "Rust" }), "Go")
+	assert.Equal(t, None[string]().UnwrapOrElse(func() string { count += 1; return "Go" }), "Go")
+	assert.Equal(t, count, 2)
+}
