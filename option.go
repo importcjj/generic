@@ -16,6 +16,14 @@ func (option Option[T]) IsSome() bool {
 	return !option.IsNone()
 }
 
+func (option Option[T]) IsSomeAnd(f func(T) bool) bool {
+	if option.IsSome() {
+		return f(*option.value)
+	}
+
+	return false
+}
+
 func (option Option[T]) IsNone() bool {
 	return option.value == nil
 }
@@ -34,4 +42,12 @@ func (option Option[T]) Expect(msg string) T {
 	}
 
 	return *option.value
+}
+
+func (option Option[T]) Filter(f func(T) bool) Option[T] {
+	if option.IsSome() && f(*option.value) {
+		return option
+	}
+
+	return None[T]()
 }
