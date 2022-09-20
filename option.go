@@ -52,7 +52,7 @@ func (option Option[T]) UnwrapOrElse(f func() T) T {
 	return f()
 }
 
-func (option Option[T]) unwrapUnchecked() T {
+func (option Option[T]) UnwrapUnchecked() T {
 	return *option.value
 }
 
